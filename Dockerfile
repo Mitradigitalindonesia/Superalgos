@@ -1,25 +1,23 @@
-# Gunakan image Node.js
+# Gunakan Node.js base image
 FROM node:18
 
 # Install Nginx
-RUN apt-get update && \
-    apt-get install -y nginx && \
-    apt-get clean
+RUN apt-get update && apt-get install -y nginx && apt-get clean
 
 # Set working directory
 WORKDIR /app
 
-# Salin seluruh kode Superalgos
+# Salin semua file Superalgos
 COPY . /app
 
-# Copy nginx.conf ke dalam image
+# Salin konfigurasi nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Install dependencies
+# Install dependensi Node.js
 RUN npm install
 
-# Expose port standar (Render hanya izinkan 80)
+# Expose port 80 (Render hanya izinkan 80/443)
 EXPOSE 80
 
-# Jalankan Nginx + Superalgos secara bersamaan
-CMD bash -c "node run minMemo & nginx -g 'daemon off;'"
+# Jalankan Superalgos dan Nginx secara bersamaan
+CMD bash -c "./run minMemo & nginx -g 'daemon off;'"

@@ -20,4 +20,4 @@ RUN npm install
 EXPOSE 80
 
 # Jalankan Superalgos dan Nginx secara bersamaan
-CMD bash -c "./run minMemo & nginx -g 'daemon off;'"
+CMD bash -c "./run minMemo & sleep 15 && nginx -g 'daemon off;'"
